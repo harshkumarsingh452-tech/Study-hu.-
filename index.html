@@ -54,7 +54,7 @@
     .nav-item.active { color: #5b21b6; }
     .nav-icon { font-size: 18px; }
 
-    /* --- SECRET ADVANCED WHATSAPP CHAT UI --- */
+    /* --- SECRET WHATSAPP CHAT UI --- */
     #chatScreen { display: none; flex-direction: column; height: 100vh; background-color: #0b141a; }
     .chat-header { background: #202c33; padding: 10px 14px; border-bottom: 1px solid #2a3942; display: flex; justify-content: space-between; align-items: center; z-index: 20; }
     .user-info { display: flex; align-items: center; gap: 10px; }
@@ -123,7 +123,7 @@
 
       <div class="section-head">Quick Access</div>
 
-      <!-- Quick Access Grid with Working PW Links -->
+      <!-- Quick Access Grid -->
       <div class="grid-container">
         <div class="grid-item" onclick="openPWLink('https://www.pw.live/study/batches')">
           <div class="grid-icon">📚</div>
@@ -164,7 +164,7 @@
       </div>
     </main>
 
-    <!-- Bottom Navigation Bar with Working Links -->
+    <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
       <div class="nav-item" onclick="openPWLink('https://www.pw.live/study/batches')">
         <span class="nav-icon">📺</span>
@@ -189,7 +189,7 @@
     </div>
   </div>
 
-  <!-- 2. SECRET ADVANCED WHATSAPP CHAT SCREEN -->
+  <!-- 2. SECRET WHATSAPP CHAT SCREEN -->
   <div id="chatScreen">
     <div class="chat-header">
       <div class="user-info">
@@ -242,7 +242,7 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let myName = localStorage.getItem("chat_nickname");
+    let myName = localStorage.getItem("chat_nickname") || "";
     const SECRET_CODE = "#789#"; 
     let typingTimeout = null;
 
@@ -274,7 +274,7 @@
 
     function updateUIHeader() {
       document.getElementById("displayNickName").innerText = myName;
-      document.getElementById("userAvatar").innerText = myName.charAt(0).toUpperCase();
+      document.getElementById("userAvatar").innerText = myName ? myName.charAt(0).toUpperCase() : 'U';
     }
 
     function openPWLink(url) {
@@ -302,12 +302,15 @@
     }
 
     function lockApp() {
-      db.ref("presence/" + myName).set({ online: false, lastSeen: Date.now() });
+      if(myName) {
+        db.ref("presence/" + myName).set({ online: false, lastSeen: Date.now() });
+      }
       document.getElementById('chatScreen').style.display = 'none';
       document.getElementById('studyScreen').style.display = 'flex';
     }
 
     function setupPresenceAndTyping() {
+      if(!myName) return;
       const userPresenceRef = db.ref("presence/" + myName);
       userPresenceRef.set({ online: true, typing: false });
       userPresenceRef.onDisconnect().set({ online: false, lastSeen: Date.now() });
@@ -340,6 +343,7 @@
     }
 
     function handleTyping() {
+      if(!myName) return;
       db.ref("presence/" + myName + "/typing").set(myName);
       clearTimeout(typingTimeout);
       typingTimeout = setTimeout(() => {
@@ -453,6 +457,3 @@
         } else {
           tickHTML = `<span class="tick">✓</span>`;
         }
-      }
-
-      const content = data.delete
