@@ -3,42 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Desk - Prep & Notes</title>
+  <title>Physics Wallah Daily Planner</title>
+
+  <!-- PW Icons & Manifest Links (Local Path) -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/jpeg" href="./pw-logo.jpg">
+  <link rel="apple-touch-icon" href="./pw-logo.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="PW Planner">
+  <meta name="theme-color" content="#ffffff">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #0f172a; color: #f8fafc; max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+    body { background-color: #f8fafc; color: #0f172a; max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
     
-    /* Decoy Study Feed UI */
-    #studyScreen { flex: 1; display: flex; flex-direction: column; }
-    header { background: #1e293b; padding: 14px; border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 10; }
+    /* PW Official Light Theme UI */
+    #studyScreen { flex: 1; display: flex; flex-direction: column; background: #f8fafc; padding-bottom: 60px; }
+    header { background: #ffffff; padding: 12px 16px; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10; }
     .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .app-title { color: #818cf8; font-weight: bold; font-size: 18px; display: flex; align-items: center; gap: 6px; }
-    .badge { background: #312e81; color: #c7d2fe; font-size: 11px; padding: 3px 8px; border-radius: 12px; }
-    .search-box { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px 14px; color: #fff; font-size: 14px; outline: none; }
-    .search-box:focus { border-color: #6366f1; }
+    .app-title { color: #1e1b4b; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; letter-spacing: 0.3px; }
     
-    main { padding: 16px; flex: 1; overflow-y: auto; }
-    .notice { background: #1e1b4b; border: 1px solid #3730a3; padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 13px; color: #c7d2fe; }
-    .section-title { font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; letter-spacing: 0.5px; }
+    .pw-logo-circle { width: 32px; height: 32px; border-radius: 50%; background: #000000; color: #ffffff; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 13px; border: 1px solid #1e293b; }
     
-    .video-card { background: #1e293b; border-radius: 12px; overflow: hidden; border: 1px solid #334155; margin-bottom: 14px; }
-    .thumb { height: 160px; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 40px; position: relative; }
-    .duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); font-size: 11px; padding: 2px 6px; border-radius: 4px; color: #cbd5e1; }
-    .details { padding: 12px; }
-    .video-title { font-size: 14px; font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
-    .meta { font-size: 12px; color: #94a3b8; }
+    .user-stats { display: flex; gap: 8px; align-items: center; }
+    .stat-badge { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; color: #475569; display: flex; align-items: center; gap: 4px; }
+
+    .search-box { width: 100%; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; color: #0f172a; font-size: 13px; outline: none; }
+    .search-box:focus { border-color: #5b21b6; background: #fff; }
+
+    main { padding: 14px; flex: 1; overflow-y: auto; }
+
+    /* Continue Watching Banner (Opens YouTube) */
+    .continue-card { background: #fffbeb; border: 1px solid #fef3c7; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; }
+    .continue-card:active { opacity: 0.8; }
+    .play-btn { width: 36px; height: 36px; border-radius: 50%; background: #0f172a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+    .continue-info { flex: 1; }
+    .continue-title { font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 2px; }
+    .continue-sub { font-size: 11px; color: #64748b; }
+
+    .section-head { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+
+    /* Quick Access Grid */
+    .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    .grid-item { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; cursor: pointer; transition: transform 0.1s; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+    .grid-item:active { transform: scale(0.97); }
+    .grid-icon { width: 38px; height: 38px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .grid-label { font-size: 11px; font-weight: 600; color: #334155; }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav { background: #ffffff; border-top: 1px solid #e2e8f0; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 600; color: #64748b; gap: 2px; cursor: pointer; }
+    .nav-item.active { color: #5b21b6; }
+    .nav-icon { font-size: 18px; }
 
     /* Secret Chat UI */
     #chatScreen { display: none; flex-direction: column; height: 100vh; background-color: #020617; }
     .chat-header { background: #0f172a; padding: 12px 16px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; }
     .user-info { display: flex; align-items: center; gap: 10px; }
-    .avatar { width: 38px; height: 38px; border-radius: 50%; background: #4f46e5; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-    .lock-btn { background: #1e293b; border: none; color: #94a3b8; font-size: 13px; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; background: #4f46e5; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; text-transform: uppercase; }
+    .header-btns { display: flex; gap: 6px; }
+    .lock-btn { background: #1e293b; border: none; color: #94a3b8; font-size: 12px; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
     
     .messages-area { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
     .encrypted-tag { text-align: center; font-size: 11px; color: #64748b; background: #0f172a; padding: 4px 12px; border-radius: 20px; align-self: center; border: 1px solid #1e293b; }
     
-    .msg { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.4; word-break: break-word; }
+    .msg { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.4; word-break: break-word; position: relative; cursor: pointer; }
     .msg-in { background: #1e293b; border-top-left-radius: 2px; align-self: flex-start; color: #e2e8f0; border: 1px solid #334155; }
     .msg-out { background: #4f46e5; border-top-right-radius: 2px; align-self: flex-end; color: #fff; }
     .time { font-size: 10px; opacity: 0.6; margin-top: 4px; display: block; text-align: right; }
@@ -50,59 +80,128 @@
 </head>
 <body>
 
-  <!-- 1. DECOY STUDY SCREEN -->
+  <!-- 1. DECOY PW DAILY PLANNER SCREEN -->
   <div id="studyScreen">
     <header>
       <div class="top-bar">
-        <div class="app-title">📖 PW Study Portal</div>
-        <span class="badge">Class 12th</span>
+        <div class="app-title">
+          <div class="pw-logo-circle">PW</div>
+          PHYSICS WALLAH DAILY PLANNER
+        </div>
+        <div class="user-stats">
+          <span class="stat-badge">🔥 0</span>
+          <span class="stat-badge">⚡ 2 XP</span>
+        </div>
       </div>
       <input 
         id="searchInput" 
         type="text" 
-        placeholder="Search lectures, notes, topics..." 
+        placeholder="Search batches, notes or topics..." 
         onkeyup="handleSearch(event)"
         class="search-box"
       />
     </header>
 
     <main>
-      <div class="notice">
-        <strong>⚡ Target JEE/NEET 2027</strong><br>
-        New Physics Daily Practice Problems (DPP) uploaded in your batch.
-      </div>
-
-      <div class="section-title">Recent Video Lectures</div>
-      
-      <div class="video-card">
-        <div class="thumb">⚡<span class="duration">45:20</span></div>
-        <div class="details">
-          <div class="video-title">Electrostatics Class 12 - One Shot Revision</div>
-          <div class="meta">Physics Wallah • 120k views • 2 days ago</div>
+      <!-- Continue Watching Banner (Opens YouTube) -->
+      <div class="continue-card" onclick="openLecture()">
+        <div class="play-btn">▶</div>
+        <div class="continue-info">
+          <div class="continue-title">Ray Optics & Optical Instruments - 06</div>
+          <div class="continue-sub">Physics Wallah • Click to watch on YouTube</div>
         </div>
       </div>
 
-      <div class="video-card">
-        <div class="thumb">🧪<span class="duration">1:12:05</span></div>
-        <div class="details">
-          <div class="video-title">Haloalkanes & Haloarenes Complete Organic</div>
-          <div class="meta">ALLEN Career Institute • 85k views • 5 days ago</div>
+      <div class="section-head">Quick Access</div>
+
+      <!-- Quick Access Grid Components -->
+      <div class="grid-container">
+        <div class="grid-item" onclick="openLecture()">
+          <div class="grid-icon">📚</div>
+          <div class="grid-label">My Batches</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening History...')">
+          <div class="grid-icon">🕒</div>
+          <div class="grid-label">My History</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening Doubts Section...')">
+          <div class="grid-icon">❓</div>
+          <div class="grid-label">My Doubts</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening PDF Bank...')">
+          <div class="grid-icon">📄</div>
+          <div class="grid-label">PDF Bank</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening Dashboard...')">
+          <div class="grid-icon">📊</div>
+          <div class="grid-label">Dashboard</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening Downloads...')">
+          <div class="grid-icon">📥</div>
+          <div class="grid-label">Downloads</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening Test Series...')">
+          <div class="grid-icon">⚔️</div>
+          <div class="grid-label">Test Series</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening Rank Predictor...')">
+          <div class="grid-icon">🎓</div>
+          <div class="grid-label">Rank Predictor</div>
+        </div>
+
+        <div class="grid-item" onclick="alert('Opening Bookmarks...')">
+          <div class="grid-icon">🔖</div>
+          <div class="grid-label">Bookmarks</div>
         </div>
       </div>
     </main>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="nav-icon">📺</span>
+        <span>Batches</span>
+      </div>
+      <div class="nav-item active">
+        <span class="nav-icon">📖</span>
+        <span>Study</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🏢</span>
+        <span>Offline</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">π</span>
+        <span>Pi</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🏪</span>
+        <span>PW Store</span>
+      </div>
+    </div>
   </div>
 
   <!-- 2. SECRET CHAT SCREEN -->
   <div id="chatScreen">
     <div class="chat-header">
       <div class="user-info">
-        <div class="avatar">S</div>
+        <div id="userAvatar" class="avatar">U</div>
         <div>
-          <div style="font-weight: 600; font-size: 14px;">Secret Workspace</div>
+          <div id="displayNickName" style="font-weight: 600; font-size: 14px; color:#fff;">Secret Workspace</div>
           <div style="font-size: 11px; color: #4ade80;">● Online</div>
         </div>
       </div>
-      <button onclick="lockApp()" class="lock-btn">🔒 Lock</button>
+      <div class="header-btns">
+        <button onclick="changeName()" class="lock-btn">✏️ Name</button>
+        <button onclick="lockApp()" class="lock-btn">🔒 Lock</button>
+      </div>
     </div>
 
     <div id="messageContainer" class="messages-area">
@@ -126,7 +225,6 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    // YOUR FIREBASE CONFIG INTEGRATED
     const firebaseConfig = {
       apiKey: "AIzaSyBWAVrKNVaxWRyUdQtnUl7tdOEAXssprwM",
       authDomain: "study-desk-b5e53.firebaseapp.com",
@@ -137,32 +235,60 @@
       appId: "1:171975511669:web:fd23b111b84679fc2d323c"
     };
 
-    // Firebase Initialize
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Unique User Identity Store
-    let myName = localStorage.getItem("chat_user_id");
-    if(!myName) {
-      myName = "User_" + Math.floor(Math.random() * 8999 + 1000);
-      localStorage.setItem("chat_user_id", myName);
+    let myName = localStorage.getItem("chat_nickname");
+    const SECRET_CODE = "#789#"; 
+
+    if ("Notification" in window) {
+      Notification.requestPermission();
     }
 
-    // SECRET UNLOCK CODE
-    const SECRET_CODE = "#789#"; 
+    function checkNickname() {
+      if (!myName) {
+        myName = prompt("Enter your nickname / chat name:", "");
+        if (!myName || myName.trim() === "") {
+          myName = "User_" + Math.floor(Math.random() * 8999 + 1000);
+        } else {
+          myName = myName.trim();
+        }
+        localStorage.setItem("chat_nickname", myName);
+      }
+      updateUIHeader();
+    }
+
+    function changeName() {
+      let newName = prompt("Enter new nickname:", myName);
+      if (newName && newName.trim() !== "") {
+        myName = newName.trim();
+        localStorage.setItem("chat_nickname", myName);
+        updateUIHeader();
+      }
+    }
+
+    function updateUIHeader() {
+      document.getElementById("displayNickName").innerText = myName;
+      document.getElementById("userAvatar").innerText = myName.charAt(0).toUpperCase();
+    }
+
+    function openLecture() {
+      window.open("https://www.youtube.com/@PhysicsWallah", "_blank");
+    }
 
     function handleSearch(event) {
       if (event.key === 'Enter') {
         const query = document.getElementById('searchInput').value.trim();
         if (query === SECRET_CODE) {
           unlockChat();
-        } else {
-          alert("Searching for lectures: " + query);
+        } else if(query.length > 0) {
+          window.open("https://www.youtube.com/results?search_query=physics+wallah+" + encodeURIComponent(query), "_blank");
         }
       }
     }
 
     function unlockChat() {
+      checkNickname();
       document.getElementById('searchInput').value = '';
       document.getElementById('studyScreen').style.display = 'none';
       document.getElementById('chatScreen').style.display = 'flex';
@@ -174,7 +300,6 @@
       document.getElementById('studyScreen').style.display = 'flex';
     }
 
-    // FIREBASE MESSAGING LOGIC
     function sendMessage() {
       const input = document.getElementById('chatInput');
       const text = input.value.trim();
@@ -182,7 +307,6 @@
 
       const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-      // Save to Firebase Database
       db.ref("secret_messages").push({
         sender: myName,
         message: text,
@@ -193,20 +317,36 @@
       input.value = '';
     }
 
+    function deleteMessage(msgId, senderName) {
+      if (senderName === myName || confirm("Delete this message for everyone?")) {
+        db.ref("secret_messages").child(msgId).remove();
+      }
+    }
+
+    const fakeNotifications = [
+      "📚 Daily Planner: New Physics DPP-4 uploaded by Alakh Sir.",
+      "⚡ PW All India Mock Test schedule is live. Check now!",
+      "🧪 Organic Chemistry Short Notes available in PDF Bank.",
+      "📝 Physics Wallah: New Doubt Session started for Class 12."
+    ];
+
     let isListening = false;
+    let initialLoad = true;
+
     function listenForMessages() {
       if (isListening) return;
       isListening = true;
 
       const container = document.getElementById('messageContainer');
       
-      // Fetch and listen to live messages
+      // Message Added Listener
       db.ref("secret_messages").limitToLast(50).on("child_added", (snapshot) => {
         const data = snapshot.val();
+        const msgId = snapshot.key;
         const isMe = data.sender === myName;
 
         const msgHTML = `
-          <div class="msg ${isMe ? 'msg-out' : 'msg-in'}">
+          <div id="msg-${msgId}" class="msg ${isMe ? 'msg-out' : 'msg-in'}" onclick="deleteMessage('${msgId}', '${data.sender}')" title="Click to delete">
             ${!isMe ? `<strong style="font-size:10px; color:#818cf8; display:block; margin-bottom:2px;">${data.sender}</strong>` : ''}
             ${data.message}
             <span class="time">${data.time}</span>
@@ -215,7 +355,44 @@
         
         container.insertAdjacentHTML('beforeend', msgHTML);
         container.scrollTop = container.scrollHeight;
+
+        if (!isMe && !initialLoad) {
+          showFakeNotification();
+        }
       });
+
+      // Message Removed Listener
+      db.ref("secret_messages").on("child_removed", (snapshot) => {
+        const msgId = snapshot.key;
+        const msgElem = document.getElementById(`msg-${msgId}`);
+        if (msgElem) {
+          msgElem.remove();
+        }
+      });
+
+      setTimeout(() => { initialLoad = false; }, 2000);
+    }
+
+    function showFakeNotification() {
+      if ("Notification" in window && Notification.permission === "granted") {
+        const randomFakeText = fakeNotifications[Math.floor(Math.random() * fakeNotifications.length)];
+        
+        document.title = "🔔 PW Planner: New Update";
+
+        try {
+          new Notification("Physics Wallah Daily Planner", {
+            body: randomFakeText,
+            icon: "./pw-logo.jpg",
+            vibrate: [200, 100, 200]
+          });
+        } catch (e) {
+          console.log("Notification fallback execution");
+        }
+
+        setTimeout(() => {
+          document.title = "Physics Wallah Daily Planner";
+        }, 5000);
+      }
     }
   </script>
 </body>
