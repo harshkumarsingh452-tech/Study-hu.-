@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Physics Wallah Daily Planner</title>
 
-  <!-- PW Icons & Manifest Links (Local Path) -->
+  <!-- PW Icons & Manifest Links -->
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" type="image/jpeg" href="./pw-logo.jpg">
   <link rel="apple-touch-icon" href="./pw-logo.jpg">
@@ -34,7 +34,6 @@
 
     main { padding: 14px; flex: 1; overflow-y: auto; }
 
-    /* Continue Watching Banner (Opens YouTube) */
     .continue-card { background: #fffbeb; border: 1px solid #fef3c7; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; }
     .continue-card:active { opacity: 0.8; }
     .play-btn { width: 36px; height: 36px; border-radius: 50%; background: #0f172a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
@@ -44,38 +43,49 @@
 
     .section-head { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
 
-    /* Quick Access Grid */
     .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
     .grid-item { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; cursor: pointer; transition: transform 0.1s; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
     .grid-item:active { transform: scale(0.97); }
     .grid-icon { width: 38px; height: 38px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 18px; }
     .grid-label { font-size: 11px; font-weight: 600; color: #334155; }
 
-    /* Bottom Navigation Bar */
     .bottom-nav { background: #ffffff; border-top: 1px solid #e2e8f0; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
     .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 600; color: #64748b; gap: 2px; cursor: pointer; }
     .nav-item.active { color: #5b21b6; }
     .nav-icon { font-size: 18px; }
 
-    /* Secret Chat UI */
-    #chatScreen { display: none; flex-direction: column; height: 100vh; background-color: #020617; }
-    .chat-header { background: #0f172a; padding: 12px 16px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; }
+    /* --- SECRET ADVANCED WHATSAPP CHAT UI --- */
+    #chatScreen { display: none; flex-direction: column; height: 100vh; background-color: #0b141a; }
+    .chat-header { background: #202c33; padding: 10px 14px; border-bottom: 1px solid #2a3942; display: flex; justify-content: space-between; align-items: center; z-index: 20; }
     .user-info { display: flex; align-items: center; gap: 10px; }
-    .avatar { width: 38px; height: 38px; border-radius: 50%; background: #4f46e5; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; text-transform: uppercase; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; background: #00a884; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; text-transform: uppercase; font-size: 15px; }
+    .status-text { font-size: 11px; color: #8696a0; }
+    .status-text.online { color: #00a884; }
     .header-btns { display: flex; gap: 6px; }
-    .lock-btn { background: #1e293b; border: none; color: #94a3b8; font-size: 12px; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
-    
-    .messages-area { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-    .encrypted-tag { text-align: center; font-size: 11px; color: #64748b; background: #0f172a; padding: 4px 12px; border-radius: 20px; align-self: center; border: 1px solid #1e293b; }
-    
-    .msg { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.4; word-break: break-word; position: relative; cursor: pointer; }
-    .msg-in { background: #1e293b; border-top-left-radius: 2px; align-self: flex-start; color: #e2e8f0; border: 1px solid #334155; }
-    .msg-out { background: #4f46e5; border-top-right-radius: 2px; align-self: flex-end; color: #fff; }
-    .time { font-size: 10px; opacity: 0.6; margin-top: 4px; display: block; text-align: right; }
+    .lock-btn { background: #111b21; border: 1px solid #2a3942; color: #aebac1; font-size: 12px; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+    .lock-btn:active { background: #2a3942; }
 
-    .input-bar { padding: 12px; background: #0f172a; border-top: 1px solid #1e293b; display: flex; gap: 8px; }
-    .chat-input { flex: 1; background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 14px; outline: none; }
-    .send-btn { background: #4f46e5; border: none; color: #fff; border-radius: 10px; padding: 0 16px; font-weight: 600; cursor: pointer; }
+    .messages-area { flex: 1; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; background-image: radial-gradient(#1f2c34 1px, transparent 0); background-size: 16px 16px; }
+    .encrypted-tag { text-align: center; font-size: 11px; color: #ffd279; background: #182229; padding: 6px 12px; border-radius: 8px; align-self: center; border: 1px solid #222d34; margin-bottom: 8px; max-width: 90%; }
+    
+    .msg { max-width: 80%; padding: 7px 10px 4px 10px; border-radius: 8px; font-size: 13.5px; line-height: 1.4; word-break: break-word; position: relative; box-shadow: 0 1px 0.5px rgba(11,20,26,.13); }
+    .msg-in { background: #202c33; align-self: flex-start; color: #e9edef; border-top-left-radius: 0px; }
+    .msg-out { background: #005c4b; align-self: flex-end; color: #e9edef; border-top-right-radius: 0px; }
+    .sender-name { font-size: 11px; font-weight: 700; color: #53bdeb; display: block; margin-bottom: 2px; }
+    
+    .msg-meta { display: flex; align-items: center; justify-content: flex-end; gap: 3px; float: right; margin-left: 12px; margin-top: 4px; }
+    .time { font-size: 10px; color: #8696a0; }
+    .msg-out .time { color: #aebac1; }
+    
+    .tick { font-size: 12px; line-height: 1; color: #8696a0; }
+    .tick.read { color: #53bdeb; }
+
+    .msg-deleted { font-style: italic; color: #8696a0; font-size: 12.5px; }
+
+    .input-bar { padding: 8px 10px; background: #202c33; border-top: 1px solid #2a3942; display: flex; gap: 8px; align-items: center; }
+    .chat-input { flex: 1; background: #2a3942; border: none; border-radius: 8px; padding: 9px 12px; color: #e9edef; font-size: 14px; outline: none; }
+    .chat-input::placeholder { color: #8696a0; }
+    .send-btn { background: #00a884; border: none; color: #fff; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -103,8 +113,7 @@
     </header>
 
     <main>
-      <!-- Continue Watching Banner (Opens YouTube) -->
-      <div class="continue-card" onclick="openLecture()">
+      <div class="continue-card" onclick="openPWLink('https://www.youtube.com/watch?v=J_7_e3Rz-z4')">
         <div class="play-btn">▶</div>
         <div class="continue-info">
           <div class="continue-title">Ray Optics & Optical Instruments - 06</div>
@@ -114,58 +123,50 @@
 
       <div class="section-head">Quick Access</div>
 
-      <!-- Quick Access Grid Components -->
+      <!-- Quick Access Grid with Working PW Links -->
       <div class="grid-container">
-        <div class="grid-item" onclick="openLecture()">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/study/batches')">
           <div class="grid-icon">📚</div>
           <div class="grid-label">My Batches</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening History...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/study/batches')">
           <div class="grid-icon">🕒</div>
           <div class="grid-label">My History</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening Doubts Section...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/saarthi/doubts')">
           <div class="grid-icon">❓</div>
           <div class="grid-label">My Doubts</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening PDF Bank...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/study/notes')">
           <div class="grid-icon">📄</div>
           <div class="grid-label">PDF Bank</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening Dashboard...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/study/dashboard')">
           <div class="grid-icon">📊</div>
           <div class="grid-label">Dashboard</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening Downloads...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/study/downloads')">
           <div class="grid-icon">📥</div>
           <div class="grid-label">Downloads</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening Test Series...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/test-series')">
           <div class="grid-icon">⚔️</div>
           <div class="grid-label">Test Series</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening Rank Predictor...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/rank-predictor')">
           <div class="grid-icon">🎓</div>
           <div class="grid-label">Rank Predictor</div>
         </div>
-
-        <div class="grid-item" onclick="alert('Opening Bookmarks...')">
+        <div class="grid-item" onclick="openPWLink('https://www.pw.live/study/bookmarks')">
           <div class="grid-icon">🔖</div>
           <div class="grid-label">Bookmarks</div>
         </div>
       </div>
     </main>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar with Working Links -->
     <div class="bottom-nav">
-      <div class="nav-item">
+      <div class="nav-item" onclick="openPWLink('https://www.pw.live/study/batches')">
         <span class="nav-icon">📺</span>
         <span>Batches</span>
       </div>
@@ -173,29 +174,29 @@
         <span class="nav-icon">📖</span>
         <span>Study</span>
       </div>
-      <div class="nav-item">
+      <div class="nav-item" onclick="openPWLink('https://www.pw.live/offline-centers')">
         <span class="nav-icon">🏢</span>
         <span>Offline</span>
       </div>
-      <div class="nav-item">
+      <div class="nav-item" onclick="openPWLink('https://www.pw.live/pi')">
         <span class="nav-icon">π</span>
         <span>Pi</span>
       </div>
-      <div class="nav-item">
+      <div class="nav-item" onclick="openPWLink('https://store.pw.live/')">
         <span class="nav-icon">🏪</span>
         <span>PW Store</span>
       </div>
     </div>
   </div>
 
-  <!-- 2. SECRET CHAT SCREEN -->
+  <!-- 2. SECRET ADVANCED WHATSAPP CHAT SCREEN -->
   <div id="chatScreen">
     <div class="chat-header">
       <div class="user-info">
         <div id="userAvatar" class="avatar">U</div>
         <div>
-          <div id="displayNickName" style="font-weight: 600; font-size: 14px; color:#fff;">Secret Workspace</div>
-          <div style="font-size: 11px; color: #4ade80;">● Online</div>
+          <div id="displayNickName" style="font-weight: 600; font-size: 14px; color:#e9edef;">Secret Group Chat</div>
+          <div id="headerStatus" class="status-text online">● online</div>
         </div>
       </div>
       <div class="header-btns">
@@ -205,18 +206,21 @@
     </div>
 
     <div id="messageContainer" class="messages-area">
-      <div class="encrypted-tag">🔒 End-to-End Encrypted Session</div>
+      <div class="encrypted-tag">🔒 Messages and calls are end-to-end encrypted. No one outside of this chat can read them.</div>
     </div>
 
     <div class="input-bar">
       <input 
         id="chatInput" 
         type="text" 
-        placeholder="Type a secret message..." 
+        placeholder="Message" 
         class="chat-input"
+        oninput="handleTyping()"
         onkeyup="if(event.key==='Enter') sendMessage()"
       />
-      <button onclick="sendMessage()" class="send-btn">Send</button>
+      <button onclick="sendMessage()" class="send-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path></svg>
+      </button>
     </div>
   </div>
 
@@ -240,6 +244,7 @@
 
     let myName = localStorage.getItem("chat_nickname");
     const SECRET_CODE = "#789#"; 
+    let typingTimeout = null;
 
     if ("Notification" in window) {
       Notification.requestPermission();
@@ -272,8 +277,8 @@
       document.getElementById("userAvatar").innerText = myName.charAt(0).toUpperCase();
     }
 
-    function openLecture() {
-      window.open("https://www.youtube.com/@PhysicsWallah", "_blank");
+    function openPWLink(url) {
+      window.open(url, "_blank");
     }
 
     function handleSearch(event) {
@@ -292,12 +297,54 @@
       document.getElementById('searchInput').value = '';
       document.getElementById('studyScreen').style.display = 'none';
       document.getElementById('chatScreen').style.display = 'flex';
+      setupPresenceAndTyping();
       listenForMessages();
     }
 
     function lockApp() {
+      db.ref("presence/" + myName).set({ online: false, lastSeen: Date.now() });
       document.getElementById('chatScreen').style.display = 'none';
       document.getElementById('studyScreen').style.display = 'flex';
+    }
+
+    function setupPresenceAndTyping() {
+      const userPresenceRef = db.ref("presence/" + myName);
+      userPresenceRef.set({ online: true, typing: false });
+      userPresenceRef.onDisconnect().set({ online: false, lastSeen: Date.now() });
+
+      db.ref("presence").on("value", (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+        let isSomeoneTyping = false;
+        let onlineCount = 0;
+
+        for (let user in data) {
+          if (user !== myName) {
+            if (data[user].typing) isSomeoneTyping = data[user].typing;
+            if (data[user].online) onlineCount++;
+          }
+        }
+
+        const statusElem = document.getElementById("headerStatus");
+        if (isSomeoneTyping) {
+          statusElem.innerText = `${isSomeoneTyping} is typing...`;
+          statusElem.classList.add("online");
+        } else if (onlineCount > 0) {
+          statusElem.innerText = `● ${onlineCount + 1} online`;
+          statusElem.classList.add("online");
+        } else {
+          statusElem.innerText = `offline`;
+          statusElem.classList.remove("online");
+        }
+      });
+    }
+
+    function handleTyping() {
+      db.ref("presence/" + myName + "/typing").set(myName);
+      clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(() => {
+        db.ref("presence/" + myName + "/typing").set(false);
+      }, 1500);
     }
 
     function sendMessage() {
@@ -311,15 +358,29 @@
         sender: myName,
         message: text,
         time: time,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        status: "sent",
+        seenBy: { [myName]: true }
       });
 
       input.value = '';
+      db.ref("presence/" + myName + "/typing").set(false);
     }
 
-    function deleteMessage(msgId, senderName) {
-      if (senderName === myName || confirm("Delete this message for everyone?")) {
-        db.ref("secret_messages").child(msgId).remove();
+    function deleteMessagePrompt(msgId, senderName) {
+      const isMe = senderName === myName;
+      let choice;
+      if (isMe) {
+        choice = confirm("Delete message for everyone? Click 'Cancel' for Delete for Me.");
+        if (choice) {
+          db.ref("secret_messages").child(msgId).update({ deleted: true, message: "This message was deleted" });
+        } else {
+          document.getElementById(`msg-${msgId}`)?.remove();
+        }
+      } else {
+        if (confirm("Delete this message for yourself?")) {
+          document.getElementById(`msg-${msgId}`)?.remove();
+        }
       }
     }
 
@@ -339,61 +400,59 @@
 
       const container = document.getElementById('messageContainer');
       
-      // Message Added Listener
       db.ref("secret_messages").limitToLast(50).on("child_added", (snapshot) => {
         const data = snapshot.val();
         const msgId = snapshot.key;
         const isMe = data.sender === myName;
 
-        const msgHTML = `
-          <div id="msg-${msgId}" class="msg ${isMe ? 'msg-out' : 'msg-in'}" onclick="deleteMessage('${msgId}', '${data.sender}')" title="Click to delete">
-            ${!isMe ? `<strong style="font-size:10px; color:#818cf8; display:block; margin-bottom:2px;">${data.sender}</strong>` : ''}
-            ${data.message}
-            <span class="time">${data.time}</span>
-          </div>
-        `;
-        
-        container.insertAdjacentHTML('beforeend', msgHTML);
-        container.scrollTop = container.scrollHeight;
+        if (!isMe && (!data.seenBy || !data.seenBy[myName])) {
+          db.ref(`secret_messages/${msgId}/seenBy/${myName}`).set(true);
+          db.ref(`secret_messages/${msgId}`).update({ status: "read" });
+        }
+
+        renderMessage(msgId, data, isMe);
 
         if (!isMe && !initialLoad) {
           showFakeNotification();
         }
       });
 
-      // Message Removed Listener
+      db.ref("secret_messages").on("child_changed", (snapshot) => {
+        const data = snapshot.val();
+        const msgId = snapshot.key;
+        const isMe = data.sender === myName;
+        
+        const existingMsg = document.getElementById(`msg-${msgId}`);
+        if (existingMsg) {
+          existingMsg.outerHTML = getMessageHTML(msgId, data, isMe);
+        }
+      });
+
       db.ref("secret_messages").on("child_removed", (snapshot) => {
         const msgId = snapshot.key;
-        const msgElem = document.getElementById(`msg-${msgId}`);
-        if (msgElem) {
-          msgElem.remove();
-        }
+        document.getElementById(`msg-${msgId}`)?.remove();
       });
 
       setTimeout(() => { initialLoad = false; }, 2000);
     }
 
-    function showFakeNotification() {
-      if ("Notification" in window && Notification.permission === "granted") {
-        const randomFakeText = fakeNotifications[Math.floor(Math.random() * fakeNotifications.length)];
-        
-        document.title = "🔔 PW Planner: New Update";
-
-        try {
-          new Notification("Physics Wallah Daily Planner", {
-            body: randomFakeText,
-            icon: "./pw-logo.jpg",
-            vibrate: [200, 100, 200]
-          });
-        } catch (e) {
-          console.log("Notification fallback execution");
-        }
-
-        setTimeout(() => {
-          document.title = "Physics Wallah Daily Planner";
-        }, 5000);
-      }
+    function renderMessage(msgId, data, isMe) {
+      const container = document.getElementById('messageContainer');
+      const html = getMessageHTML(msgId, data, isMe);
+      container.insertAdjacentHTML('beforeend', html);
+      container.scrollTop = container.scrollHeight;
     }
-  </script>
-</body>
-</html>
+
+    function getMessageHTML(msgId, data, isMe) {
+      let tickHTML = '';
+      if (isMe && !data.deleted) {
+        if (data.status === 'read' || (data.seenBy && Object.keys(data.seenBy).length > 1)) {
+          tickHTML = `<span class="tick read">✓✓</span>`;
+        } else if (data.status === 'delivered') {
+          tickHTML = `<span class="tick">✓✓</span>`;
+        } else {
+          tickHTML = `<span class="tick">✓</span>`;
+        }
+      }
+
+      const content = data.delete
